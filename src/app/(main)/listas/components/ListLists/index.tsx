@@ -19,7 +19,7 @@ export default function ListLists(){
     return (
         <div>
             { data?.map(item => (
-                <h1 id={item.id}>{ item.name }</h1>
+                <h1 key={item.id}>{ item.name }</h1>
             ))}
         </div>
     )
