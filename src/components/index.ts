@@ -8,6 +8,8 @@ const Sidenav = dynamic(() => import('components/Sidenav'))
 
 const Skeleton = dynamic(() => import('./Skeleton'))
 
+const RemoveModal = dynamic(()=> import('./RemoveModal'))
+
 export { default as Input } from './Input'
 
 export * from './Button'
@@ -25,5 +27,6 @@ export {
     Body,
     Navbar,
     Sidenav,
-    Skeleton  
+    Skeleton,
+    RemoveModal 
 }
