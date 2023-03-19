@@ -34,7 +34,7 @@ export default function List({ id }: { id: string }){
 
     const [isToAddItem, setIstoAddItem] = useState(false)
     const[isOpenRemoveModal, setIsOpenRemoveModal] = useState(false)
-    const[itemToRemove, setItemToRemove] = useState<string | undefined>()
+    const[itemToRemove, setItemToRemove] = useState<any>()
 
     const { isLoading, data } = useQuery([listsQuery, id], () => showList(id))
 
