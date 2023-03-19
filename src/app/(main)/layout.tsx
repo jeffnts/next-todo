@@ -20,7 +20,7 @@ export default function MainLayout({
         >
           <Sidenav />
           <div 
-            className='px-20 pt-10 w-full'
+            className='max-sm:p-2  px-20 pt-10 w-full'
           >
             { children }
           </div>
