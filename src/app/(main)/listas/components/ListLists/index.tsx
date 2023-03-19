@@ -19,7 +19,7 @@ export default function ListLists(){
     const { isLoading, data } = useQuery(listsQuery, listLists)
 
     const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false)
-    const [listToRemove, setListToRemove] = useState<string>()
+    const [listToRemove, setListToRemove] = useState<string | undefined>()
 
     function handleRemoveList(id: string){
         setListToRemove(id)
