@@ -28,7 +28,8 @@ export default function Sidenav(){
     return(
         <div
             className='
-            max-sm:absolute
+            max-sm:fixed
+            max-sm:z-50
             max-sm:bottom-4
             max-sm:justify-center 
             max-sm:flex 
