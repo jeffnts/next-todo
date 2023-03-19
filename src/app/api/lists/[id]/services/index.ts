@@ -51,6 +51,29 @@ export async function createListItem(request: CreateItemRequest){
 
 
 export async function removeList(id: string){
+    const list = await prisma.list.findFirst({
+        where: {
+            id
+        },
+        select: {
+            items: {
+                select: {
+                    id: true
+                }
+            }
+        }
+    })
+
+    const ids = list?.items.map(({ id }) => id)
+
+    await prisma.item.deleteMany({
+        where: {
+            id: {
+                in: ids
+            }
+        }
+    })
+
     await prisma.list.delete({
         where: {
             id
