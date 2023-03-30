@@ -27,7 +27,7 @@ export async function updateUser (request: UpdateUserRequest){
 
     await prisma.user.update({
         where: {
-            firebaseId: id
+            firebaseId: id,
         },
         data: {
             name,
