@@ -3,7 +3,7 @@ import prisma  from 'libs/prisma'
 type CreateUserRequest = {
     name: string
     email: string
-    firebaseId: any
+    firebaseId: string
 }
 
 export async function createUser (request: CreateUserRequest){
@@ -19,7 +19,7 @@ export async function createUser (request: CreateUserRequest){
 type UpdateUserRequest = {
     name: string
     email: string
-    id: any
+    id: string
 }
 
 export async function updateUser (request: UpdateUserRequest){
