@@ -1,10 +1,9 @@
-import { Prisma } from '@prisma/client'
 import prisma  from 'libs/prisma'
 
 type CreateUserRequest = {
     name: string
     email: string
-    firebaseId: Prisma.UserWhereUniqueInput['firebaseId'] | any
+    firebaseId: string 
 }
 
 export async function createUser (request: CreateUserRequest){
