@@ -20,7 +20,7 @@ model User {
   lists List[] @relation(fields: [listIDs], references: [id])
   listIDs String[]   @db.ObjectId
 
-  @@unique([email, firebaseId])
+  @@unique([email])
   @@map("users")
 }
 
