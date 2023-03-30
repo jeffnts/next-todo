@@ -15,7 +15,7 @@ import formValidation from './validations'
 const RegisterModal = dynamic(() => import('../RegisterModal'))
 
 export default function LoginPage(){
-  const formOptions = { resolver: yupResolver(formValidation) }
+    const formOptions = { resolver: yupResolver(formValidation) }
     const { register, handleSubmit, formState: { errors }} = useForm(formOptions)  
 
     const [ isOpenModal , setIsOpenModal ] = useState(false)

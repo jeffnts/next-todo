@@ -1,12 +1,12 @@
 import prisma  from 'libs/prisma'
 
-type CreateRequest = {
+type CreateUserRequest = {
     name: string
     email: string
-    firebaseId: string
+    firebaseId: string 
 }
 
-export async function createUser (request: CreateRequest){
+export async function createUser (request: CreateUserRequest){
     const { name, email, firebaseId } = request
 
     await prisma.user.create({ data: {
@@ -14,4 +14,29 @@ export async function createUser (request: CreateRequest){
         email,
         firebaseId
     }})
+}
+
+type UpdateUserRequest = {
+    name: string
+    email: string
+    id: string
+}
+
+export async function updateUser (request: UpdateUserRequest){
+    const { name, email, id } = request
+
+    await prisma.user.update({
+        where: {
+            //@ts-ignore
+            firebaseId: id,
+        },
+        data: {
+            name,
+            email
+        },
+        select: {
+            name: true,
+            email: true
+        }
+    })
 }
