@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
 import { SwapTheme } from 'components'
@@ -22,7 +23,10 @@ export default  function Navbar(){
                 <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
-                    <img src="https://raw.githubusercontent.com/dynamic-fox-mcc-04/FancyTodo-client/ef05a47406f231ef5ae82a187e3fa9cbda57de0d/img/avatar.svg" />
+                    <Image 
+                        src="https://raw.githubusercontent.com/dynamic-fox-mcc-04/FancyTodo-client/ef05a47406f231ef5ae82a187e3fa9cbda57de0d/img/avatar.svg" 
+                        alt= 'Ícone do avatar'    
+                    />
                     </div>
                 </label>
                 <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
@@ -40,7 +44,7 @@ export default  function Navbar(){
                             onClick={() => signOut()}
                         >
                             Sair
-                            <img 
+                            <Image 
                                 src="https://www.freeiconspng.com/thumbs/sign-out-icon/sign-out-logout-icon-0.png" 
                                 alt="ícone botão de sair" 
                                 width={20}
