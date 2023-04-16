@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -12,6 +13,8 @@ import { Input, SwapTheme, LanguageSelect } from 'components'
 import { useTheme } from 'store'
 
 import { login } from 'services/auth'
+
+import { useToast } from 'hooks'
 
 import formValidation from './validations'
 
@@ -27,7 +30,18 @@ export default function LoginPage(){
 
     const { t } = useTranslation()
 
-    const { mutate, status } = useMutation(login)
+    const toast = useToast()
+
+    const { push } = useRouter()
+
+    const { mutate, status } = useMutation(login, {
+      onSuccess(){
+        push('/')
+      },
+      onError(error: any){        
+        toast.error(t(error?.message as string))
+      }
+    })
     
     function onSubmit(values: any){
       mutate(values)
@@ -39,7 +53,7 @@ export default function LoginPage(){
             <div className="card-body">
               <Input 
                 label={t('LOGIN.EMAIL')}
-                placeholder={t('.EMAIL_PLACEHOLDER') ?? ''}
+                placeholder={t('LOGIN.EMAIL_PLACEHOLDER') ?? ''}
                 errors={errors}
                 { ...register('email') }
               />
