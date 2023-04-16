@@ -13,14 +13,12 @@ datasource db {
 model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
-  email String 
-  firebaseId String  
+  email String @unique
+  firebaseId String  @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   lists List[] @relation(fields: [listIDs], references: [id])
   listIDs String[]   @db.ObjectId
-
-  @@unique([email, firebaseId])
   @@map("users")
 }
 

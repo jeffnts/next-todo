@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useQuery, useMutation } from 'react-query'
+import { useTranslation } from 'react-i18next'
+
+import { useToast } from 'hooks'
 
 import { queryClient } from 'libs'
 
@@ -20,6 +23,10 @@ export default function ListLists(){
 
     const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false)
     const [listToRemove, setListToRemove] = useState<any>()
+
+    const { t } = useTranslation()
+
+    const toast = useToast()
 
     function handleRemoveList(id: string){
         setListToRemove(id)
@@ -39,6 +46,8 @@ export default function ListLists(){
             return previousData
         },
         onSuccess(){
+            toast.success(t('LISTS.REMOVE_LIST_TOAST'))
+
             setIsRemoveModalOpen(false)
         }
     })
@@ -68,14 +77,14 @@ export default function ListLists(){
                                 className="btn btn-outline"
                                 href={`/listas/${item.id}`}
                             >
-                                Ver Lista
+                                { t('LISTS.SHOW_LIST') }
                             </Link>
 
                             <button 
                                 className="btn btn-error"
                                 onClick={() => handleRemoveList(item.id)}
                             >
-                                Remover Lista
+                                { t('LISTS.REMOVE_LIST') }
                             </button>
                             </div>
                         </div>
@@ -86,8 +95,8 @@ export default function ListLists(){
             <RemoveModal 
                 isOpen={isRemoveModalOpen}
                 onClose={() => setIsRemoveModalOpen(false)}
-                title='Remover Lista'
-                description='Tem certeza que deseja remover esta lista?'
+                title={ t('LISTS.REMOVE_LIST_MODAL_TITLE') ?? '' }
+                description={ t('LISTS.REMOVE_LIST_MODAL_DESCRIPTION') ?? '' }
                 isLoading={isLoadingRemoveMutatate}
                 onConfirm={() => mutate(listToRemove)}
             />          

@@ -27,7 +27,7 @@ export const authOptions: NextAuthOptions = {
                     
                     const firebaseId = result?.user?.uid
                     
-                    const user: any = await prisma.user.findFirst({ where: { firebaseId }, select: { id: true, name: true, email: true }})
+                    const user: any = await prisma.user.findFirst({ where: { firebaseId }, select: { id: true, name: true, email: true, firebaseId: true }})
                   
                     return user
                 }catch(error){
@@ -37,6 +37,18 @@ export const authOptions: NextAuthOptions = {
             }
           })
     ],
+    callbacks: {
+        async jwt({ token, user }: any) {        
+            return {
+                ...token,
+                ...user
+            }
+          },
+          session({ session, token }: any) {
+            session.user = token
+            return session
+          },
+    },        
     secret: process.env.SECRET,    
     pages: {
         signIn: '/login'

@@ -2,6 +2,15 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 import { firebase } from 'libs'
 
+
+export async function getUser(){
+    try{
+        return fetch('/api/users').then(async data => data.json())
+    }catch(error){
+        console.log(error)
+    }
+}
+
 type RegisterUserRequest = {
     name: string
     email: string
@@ -9,9 +18,10 @@ type RegisterUserRequest = {
     token: string
 }
 
+
 export async function registerUser(request: RegisterUserRequest) {
     try{
-        const { name, email, password, token } = request
+        const { name, email, password } = request
        
         const auth = getAuth(firebase)
 
@@ -28,7 +38,7 @@ export async function registerUser(request: RegisterUserRequest) {
                 firebaseId
             })
         })
-
+       
         return {
             email,
             password
@@ -38,3 +48,28 @@ export async function registerUser(request: RegisterUserRequest) {
     }
 }
 
+type UpdateUserRequest = {
+    name: string
+    email: string    
+}
+
+export async function updateUser(request: UpdateUserRequest){
+    try{
+        const { name, email } = request
+
+        await fetch('/api/users', {
+            method: 'PUT',
+            body: JSON.stringify({
+                name,
+                email
+            })
+        })       
+
+        return {
+            name,
+            email
+        }
+    }catch(error){
+        console.log(error)
+    }
+}

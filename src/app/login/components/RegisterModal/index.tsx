@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 import { signIn } from 'next-auth/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useTranslation } from 'react-i18next'
 
 import { 
     Modal,
@@ -18,6 +19,8 @@ type Props = {
 
 export default function RegisterModal(props: Props) {
     const { isOpen, onClose } = props
+
+    const { t } = useTranslation()
     
     const formOptions = { resolver: yupResolver(formValidation) }
     const { register, handleSubmit, formState: { errors }, reset } = useForm(formOptions) 
@@ -38,7 +41,7 @@ export default function RegisterModal(props: Props) {
 
     return (
         <Modal 
-            title='Cadastrar novo usuário'
+            title={t('PROFILE.NEW_USER_LABEL')}
             isOpen={isOpen}
             onClose={onClose}
         >
@@ -46,37 +49,37 @@ export default function RegisterModal(props: Props) {
                 className='flex flex-col gap-6 mt-4'
             >
                 <Input 
-                    label='Nome'
-                    placeholder='Digite seu nome'
+                    label={t('PROFILE.NAME')}
+                    placeholder={t('PROFILE.NAME_PLACEHOLDER') ?? ''}
                     errors={errors}
                     { ...register('name') }
                 />
 
                 <Input 
-                    label='E-mail'
-                    placeholder='Digite seu e-mail'
+                    label={t('PROFILE.EMAIL')}
+                    placeholder={t('PROFILE.EMAIL_PLACEHOLDER') ?? ''}
                     errors={errors}
                     { ...register('email') }
                 />
 
                 <Input 
-                    label='Confirmar E-mail'
-                    placeholder='Confirme seu e-mail'
+                    label={t('PROFILE.EMAIL_CONFIRMATION')}
+                    placeholder={t('PROFILE.EMAIL_CONFIRMATION_PLACEHOLDER') ?? ''}
                     errors={errors}
                     { ...register('emailConfirmation') }
                 />
 
                 <Input 
-                    label='Senha'
-                    placeholder='Digite sua senha'
+                    label={t('PROFILE.PASSWORD')}
+                    placeholder={t('PROFILE.PASSWORD_PLACEHOLDER') ?? ''}
                     type='password'
                     errors={errors}
                     { ...register('password') }
                 />
 
                 <Input 
-                    label='Confirmar Senha'
-                    placeholder='Confirme sua senha'
+                    label={t('PROFILE.PASSWORD_CONFIRMATION')}
+                    placeholder={t('PROFILE.PASSWORD_CONFIRMATION_PLACEHOLDER') ?? ''}
                     type='password'
                     errors={errors}
                     { ...register('passwordConfirmation') }
@@ -86,7 +89,7 @@ export default function RegisterModal(props: Props) {
                   className={`btn btn-outline ${status}`}
                   onClick={handleSubmit(onSubmit)}
                 >
-                  Confirmar Cadastro
+                  {t('PROFILE.NEW_USER_BUTTON')}
                 </button>
             </div>
         </Modal>
