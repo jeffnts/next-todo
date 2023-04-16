@@ -7,11 +7,13 @@ type LoginPayload = {
 
 export async function login(values: LoginPayload){
     try{
-        await signIn('credentials', {
+        const result = await signIn('credentials', {
             message: JSON.stringify(values),
-            callbackUrl: '/'
+            redirect: false
           })
+        
+        if(!result?.ok) throw new Error('LOGIN.ERROR')
     }catch(error){
-        console.log(error)
+        throw error
     }
 }
