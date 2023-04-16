@@ -10,17 +10,17 @@ const Skeleton = dynamic(() => import('./Skeleton'))
 
 const RemoveModal = dynamic(()=> import('./RemoveModal'))
 
+const LanguageSelect = dynamic(() => import('./LanguageSelect'))
+
 export { default as Input } from './Input'
 
-export * from './Button'
+export { Button } from './Button'
 
-export * from './Modal'
+export { Modal } from './Modal'
 
-export * from './SwapTheme'
+export { SwapTheme } from './SwapTheme'
 
-export * from './Overlay'
-
-export * from './Navbar'
+export { Overlay } from './Overlay'
 
 
 export { 
@@ -28,5 +28,6 @@ export {
     Navbar,
     Sidenav,
     Skeleton,
-    RemoveModal 
+    RemoveModal,
+    LanguageSelect
 }

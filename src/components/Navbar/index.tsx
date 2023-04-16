@@ -3,9 +3,17 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
+import { useTranslation } from 'react-i18next';
+
 import { SwapTheme } from 'components'
+import LanguageSelect from 'components/LanguageSelect'
+
+import logoutIcon from 'assets/icons/logout.svg'
+import avatarIcon from 'assets/icons/avatar.svg'
 
 export default  function Navbar(){
+    const { t } = useTranslation()
+    
     return(
         <div className="navbar bg-base-100">
             <div className="flex-1">
@@ -17,6 +25,8 @@ export default  function Navbar(){
                 </Link>
             </div>
             <div className="flex-none">
+                <LanguageSelect />
+
                 <label tabIndex={0} className="btn btn-ghost btn-circle mr-10">
                    <SwapTheme />
                 </label>
@@ -24,8 +34,10 @@ export default  function Navbar(){
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
                     <Image 
-                        src="https://raw.githubusercontent.com/dynamic-fox-mcc-04/FancyTodo-client/ef05a47406f231ef5ae82a187e3fa9cbda57de0d/img/avatar.svg" 
-                        alt= 'Ícone do avatar'    
+                        src={avatarIcon}
+                        alt={''}
+                        width={20} 
+                        height={20}   
                     />
                     </div>
                 </label>
@@ -35,7 +47,7 @@ export default  function Navbar(){
                         className="justify-between"
                         href='/perfil'
                     >
-                        Perfil
+                        {t('MENU.PROFILE')}
                     </Link>
                     </li>
                     <li>
@@ -43,11 +55,12 @@ export default  function Navbar(){
                             className="justify-between"
                             onClick={() => signOut()}
                         >
-                            Sair
+                            {t('MENU.LOGOUT')}
                             <Image 
-                                src="https://www.freeiconspng.com/thumbs/sign-out-icon/sign-out-logout-icon-0.png" 
+                                src={logoutIcon}
                                 alt="ícone botão de sair" 
                                 width={20}
+                                height={20}
                             />
                         </p>
                     </li>

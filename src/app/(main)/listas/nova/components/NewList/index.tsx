@@ -3,6 +3,9 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from 'react-query'
+import { useTranslation } from 'react-i18next'
+
+import { useToast } from 'hooks'
 
 import { Input } from 'components'
 
@@ -14,8 +17,14 @@ export default function NewList(){
     const formOptions = { resolver: yupResolver(formValidation) }
     const { register, handleSubmit, formState: { errors }} = useForm(formOptions)
 
+    const { t } = useTranslation()
+
+    const toast = useToast()
+
     const { status, mutate} = useMutation(createList, {
         onSuccess(data){
+            toast.success(t('LISTS.CREATE_LIST_TOAST'))
+            
             push(`/listas/${data.id}`)
         }
     })
@@ -29,8 +38,8 @@ export default function NewList(){
     return(
         <div className="flex flex-col gap-4">
              <Input
-                label='Lista'
-                placeholder='Digite o nome da lista'
+                label={t('LISTS.LIST') ?? ''}
+                placeholder={t('LISTS.LIST_PLACEHOLDER') ?? ''}
                 { ...register('name') }
                 errors={errors}
             />
@@ -42,7 +51,7 @@ export default function NewList(){
                         className={`btn btn-outline max-sm:w-full sm:w-40 ${status}`}
                         onClick={handleSubmit(onSubmit)}
                     >
-                        Salvar
+                        {t('LISTS.SAVE')}
                     </button>
                 </div>
         </div>

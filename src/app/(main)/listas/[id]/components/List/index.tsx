@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useQuery, useMutation } from 'react-query'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useTranslation } from 'react-i18next'
 
 import { queryClient } from 'libs'
 
@@ -22,6 +23,8 @@ import { mapIcons } from 'utils/icons'
 
 import trashIcon from 'assets/icons/light/trash.svg'
 
+import { useToast } from 'hooks'
+
 import formValidation from './validations'
 
 import { 
@@ -32,6 +35,8 @@ import {
 export default function List({ id }: { id: string }){
     const { state } = useTheme()
 
+    const { t } = useTranslation()
+
     const [isToAddItem, setIstoAddItem] = useState(false)
     const[isOpenRemoveModal, setIsOpenRemoveModal] = useState(false)
     const[itemToRemove, setItemToRemove] = useState<any>()
@@ -40,6 +45,8 @@ export default function List({ id }: { id: string }){
 
     const formOptions = { resolver: yupResolver(formValidation) }
     const { register, handleSubmit, formState: { errors }} = useForm(formOptions)
+
+    const toast = useToast()
 
     const { status: mutationStatus, mutate } = useMutation(createListItem, {
         async onMutate(data){
@@ -65,6 +72,8 @@ export default function List({ id }: { id: string }){
             queryClient.refetchQueries([listsQuery, id])
         },
         onSuccess(){
+            toast.success(t('LISTS.CREATE_LIST_ITEM_TOAST'))
+
             setIstoAddItem(item => !item)
         }
     })
@@ -87,6 +96,8 @@ export default function List({ id }: { id: string }){
             return previousData
         },
         onSuccess(){
+            toast.success(t('LISTS.REMOVE_LIST_ITEM_TOAST'))
+
             setIsOpenRemoveModal(false)
         }
     })
@@ -183,7 +194,7 @@ export default function List({ id }: { id: string }){
 
                         <div 
                             className="tooltip" 
-                            data-tip="Remover item"
+                            data-tip={t('LISTS.REMOVE_TOOLTIP')}
                         >
                             <Image 
                                 src={trashIcon}
@@ -200,8 +211,8 @@ export default function List({ id }: { id: string }){
             { 
                 isToAddItem && (
                     <Input 
-                        label='Item'
-                        placeholder='Digite o item'
+                        label={t('LISTS.ITEM')}
+                        placeholder={t('LISTS.ITEM_PLACEHOLDER') ?? ''}
                         { ...register('name') }
                         errors={errors}
                     />
@@ -215,7 +226,7 @@ export default function List({ id }: { id: string }){
                     className={`btn btn-outline max-sm:w-full sm:w-40 max-sm:mb-5 ${mutationStatus}`}
                     onClick={handleAddItem}
                 >
-                    { isToAddItem? 'Salvar Item': 'Novo Item' }
+                    { isToAddItem? t('LISTS.SAVE_ITEM'): t('LISTS.NEW_ITEM') }
                 </button>
 
                 {
@@ -224,16 +235,16 @@ export default function List({ id }: { id: string }){
                             className="btn btn-error btn-accent max-sm:w-full sm:w-40"
                             onClick={() => setIstoAddItem(false)}
                         >
-                            Cancelar
+                            { t('LISTS.CANCEL') }
                         </button>
                     )
                 }
            </div>
            <RemoveModal 
-            isOpen={isOpenRemoveModal}
-            onClose={() => setIsOpenRemoveModal(false)}
-            onConfirm={handleRemoveItem}
-            isLoading={isLoadingRemove}
+                isOpen={isOpenRemoveModal}
+                onClose={() => setIsOpenRemoveModal(false)}
+                onConfirm={handleRemoveItem}
+                isLoading={isLoadingRemove}
            />
         </div>
     )

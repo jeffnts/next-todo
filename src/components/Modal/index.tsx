@@ -12,7 +12,7 @@ export function Modal(props: Props){
         onClose,
         children } = props
 
-    function handleClose(e){
+    function handleClose(e: any){
         if(e.target.id === 'modal-wrapper') onClose()
     }
         

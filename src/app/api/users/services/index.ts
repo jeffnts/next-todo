@@ -1,5 +1,18 @@
 import prisma  from 'libs/prisma'
 
+
+export async function getUser(id: string){
+    return prisma.user.findFirst({
+        where: {
+            firebaseId: id
+        },
+        select: {
+            name: true,
+            email: true
+        }
+    })
+}
+
 type CreateUserRequest = {
     name: string
     email: string
@@ -32,7 +45,8 @@ export async function updateUser (request: UpdateUserRequest){
         },
         data: {
             name,
-            email
+            email,
+            updatedAt: new Date()
         },
         select: {
             name: true,

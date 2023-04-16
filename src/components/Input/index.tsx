@@ -1,12 +1,19 @@
+'use client'
+
 import { forwardRef, InputHTMLAttributes } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement>{
-    label: string,
+    label: string
+    isLoading?: boolean
     errors?: any
 }
 
 function Input (props: Props, ref: any) {
     const error = props.errors?.[props.name as any]
+    const { isLoading, ...rest } = props
+
+    const { t } = useTranslation()
     
     return (
         <div >
@@ -20,12 +27,13 @@ function Input (props: Props, ref: any) {
                     ${error? 'border-red-500': 'border-gray-300 '}                   
                     `
                 }
-                    placeholder={props.placeholder || 'Digitar'}
-                    { ...props }
+                    { ...rest }  
+                    placeholder={isLoading? t('INPUT.LOADING') || '' : rest.placeholder}
+                    disabled={isLoading || props.disabled}                  
                     ref={ref}
                 />
                 <p className="text-red-500 text-xs italic">
-                { error?.message } 
+                { t(error?.message) } 
             </p>
       </div>
     )

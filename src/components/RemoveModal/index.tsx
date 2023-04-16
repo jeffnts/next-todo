@@ -1,3 +1,7 @@
+'use client'
+
+import { useTranslation } from 'react-i18next'
+
 import { Modal } from 'components'
 
 type Props = {
@@ -18,29 +22,31 @@ export default function RemoveModal(props: Props){
         description,
         isLoading } = props
 
+    const { t } = useTranslation()
+
     return (
         <Modal
             isOpen={isOpen}
             onClose={onClose}
-            title={title || 'Remover Item'}
+            title={title || t('MODAL.TITLE')}
         >
             <div className='mt-5'>
-                { description || 'Tem certeza que deseja remover este item?'}
+                { description || t('MODAL.DESCRIPTION')}
             </div>
 
             <div className='flex justify-end gap-8 mt-6'>
                 <button 
-                    className={`btn btn-outline ${isLoading && 'loading'}`}
+                    className={`btn btn-outline ${isLoading && 'disabled'}`}
                     onClick={onClose}
                 >
-                    Cancelar
+                    { t('LISTS.CANCEL') }
                 </button>
 
                 <button
                     className={`btn btn-error ${isLoading && 'loading'}`}
                     onClick={onConfirm}
                 >
-                    Remover
+                    { t('LISTS.REMOVE') }
                 </button>
             </div>
         </Modal>

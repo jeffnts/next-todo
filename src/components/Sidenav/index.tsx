@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
 
 import { mapIcons } from 'utils/icons'
 
@@ -10,17 +11,19 @@ import { useTheme } from 'store'
 export default function Sidenav(){
      const { state } = useTheme()
 
+     const { t } = useTranslation()
+
      const menu = [
         {
             id: 1,
             link: '/listas',
-            name: 'Ver listar',
+            name: t('MENU.SHOW_LISTS'),
             icon: 'list'
         },
         {
             id: 2,
             link: '/listas/nova',
-            name: 'Nova Lista',
+            name: t('MENU.NEW_LISTS'),
             icon: 'plus'
         }
     ]
@@ -57,6 +60,7 @@ export default function Sidenav(){
                                     src={mapIcons[state.theme][item.icon]}
                                     alt={`Ícone ${item.name}`}
                                     width={20}
+                                    height={20}
                                 />
 
                                 <div className='max-sm:hidden'>

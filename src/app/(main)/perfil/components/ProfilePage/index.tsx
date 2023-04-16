@@ -1,42 +1,99 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
+import { useForm } from 'react-hook-form'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation, useQuery } from 'react-query'
+import { useTranslation } from 'react-i18next'
 
 import { Input } from 'components'
 
+import { forms } from 'consts/errors'
+
+import { required } from 'utils/yup'
+
+import { 
+    getUser,
+    updateUser } from  'services/users'
+
+import { useToast } from 'hooks'
+
+import { userKey } from 'consts/queries'
+
+import formValidation from './validations'
+
 export default function ProfilePage(){
-    const session = useSession()   
+    const session = useSession() 
+     
+    const { t } = useTranslation()
+
+    const toast = useToast()
+    
+    const formOptions = { resolver: yupResolver(
+        formValidation
+        .concat(
+            Yup.object({
+                emailConfirmation: required.oneOf([Yup.ref('email'), t(forms.EMAIL_NOT_MATCH)])
+            })
+        )
+    )}
+
+    const { register, handleSubmit, formState: { errors }} = useForm(formOptions)
+    
+    const { data: user, isLoading, refetch } = useQuery(userKey, getUser)
+        
+    const { mutate, status } = useMutation(updateUser, {
+        onSuccess(){
+            refetch()
+            toast.success(t('PROFILE.UPDATE_USER_TOAST'))
+        }
+    })
+    
+    function onSubmit(values: any){
+        mutate(values)
+    }
 
     return (
         <div className='flex flex-col gap-4 w-full'>
             <Input 
-                label='Nome'
-                placeholder='Digite o nome do usuário' 
-                defaultValue={session.data?.user?.name || ''}
+                label={t('PROFILE.NAME')}
+                placeholder={t('PROFILE.NAME_PLACEHOLDER') ?? ''}
+                defaultValue={user?.name || ''}
+                { ...register('name') }
+                isLoading={isLoading}
+                errors={errors}
             />
 
             <Input 
-                label='E-mail'
-                placeholder='Digite o endereço de email'
-                defaultValue={session.data?.user?.email || ''}
+                label={t('PROFILE.EMAIL')}
+                placeholder={t('PROFILE.EMAIL_PLACEHOLDER') ?? ''}
+                defaultValue={user?.email || ''}
+                { ...register('email') }
+                isLoading={isLoading}
+                errors={errors}
             />
 
             <Input 
-                label='Confirmar E-mail'
-                placeholder='Confirme seu e-mail'
-                defaultValue={session.data?.user?.email || ''}
+                label={t('PROFILE.EMAIL_CONFIRMATION')}
+                placeholder={t('PROFILE.EMAIL_CONFIRMATION_PLACEHOLDER') ?? ''}
+                defaultValue={user?.email || ''}
+                { ...register('emailConfirmation') }
+                isLoading={isLoading}
+                errors={errors}
             />  
 
             <button
-                className='btn btn-outline'
+                className={`btn btn-outline ${status}`}
+                onClick={handleSubmit(onSubmit)}
             >
-                Salvar dados
+                {t('PROFILE.SAVE')}
             </button>
 
             <button
                 className='btn btn-link'
             >
-                Redefinir senha
+                {t('PROFILE.REDEFINE_PASSWORD')}
             </button>
         </div>
     )

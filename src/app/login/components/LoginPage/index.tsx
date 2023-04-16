@@ -4,11 +4,14 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { signIn } from 'next-auth/react'
-import { Input, SwapTheme } from 'components'
+import { useMutation } from 'react-query'
+import { useTranslation } from 'react-i18next'
 
+import { Input, SwapTheme, LanguageSelect } from 'components'
 
 import { useTheme } from 'store'
+
+import { login } from 'services/auth'
 
 import formValidation from './validations'
 
@@ -21,12 +24,13 @@ export default function LoginPage(){
     const [ isOpenModal , setIsOpenModal ] = useState(false)
 
     const { state } = useTheme()
+
+    const { t } = useTranslation()
+
+    const { mutate, status } = useMutation(login)
     
     function onSubmit(values: any){
-      signIn('credentials', {
-        message: JSON.stringify(values),
-        callbackUrl: '/'
-      })
+      mutate(values)
     }
 
     return (
@@ -34,37 +38,37 @@ export default function LoginPage(){
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <div className="card-body">
               <Input 
-                label='Email'
-                placeholder='Digite seu email'
+                label={t('LOGIN.EMAIL')}
+                placeholder={t('.EMAIL_PLACEHOLDER') ?? ''}
                 errors={errors}
                 { ...register('email') }
               />
               
               <Input 
-                label='Senha'
+                label={t('LOGIN.PASSWORD')}
+                placeholder={t('LOGIN.PASSWORD_PLACEHOLDER') ?? ''}
                 type='password'
-                placeholder='Digite sua senha'
                 errors={errors}
                 { ...register('password') }
               />
 
               <div className="form-control mt-6">
                 <button 
-                  className={`btn btn-outline`}
+                  className={`btn btn-outline ${status}`}
                   onClick={handleSubmit(onSubmit)}
                 >
-                  Entrar 
+                  {t('LOGIN.BUTTON')}
                 </button>
               </div>
 
               <div className="text-sm font-light flex mt-6">
-                  <p>Não tem uma conta ainda? </p>
+                  <p>{t('LOGIN.CREATE_ACCOUNT_LABEL')} </p>
 
                   <p
                     className='link link-primary '
                     onClick={() => setIsOpenModal(true)}
                   > 
-                    Criar conta
+                    {t('LOGIN.CREATE_ACCOUNT_BUTON')}
                   </p>                               
               </div>
             </div>
@@ -76,8 +80,9 @@ export default function LoginPage(){
           />
 
           <div
-            className='absolute top-4 right-4'
+            className='absolute top-4 flex right-4'
           >
+            <LanguageSelect />
             <SwapTheme />
           </div>
       </div>

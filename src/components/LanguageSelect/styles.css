@@ -1,0 +1,3 @@
+.react-flags-select ul {
+    @apply shadow bg-base-100 dropdown-content;
+}

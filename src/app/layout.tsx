@@ -1,20 +1,18 @@
 import './globals.css'
 
-import { Providers } from './providers'
+import  Providers from './providers'
 
 export const metadata = {
   title: 'To-Do App'
 }
 
 export default function RootLayout({
-  children,
-  session
+  children
 }: {
-  children: React.ReactNode,
-  session: any
+  children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html>
       <body>
         <Providers>
           {children}

@@ -1,8 +1,8 @@
 export const forms = {
-    REQUIRED: 'Campo obrigatório',
-    INVALID_PASSWORD: 'A senha deve conter ao menos 6 digitos',
-    INVALID_EMAIL: 'E-mail inválido',
-    EMAIL_NOT_MATCH: 'Os e-mails digitados não são iguais',
-    PASSWORD_NOT_MATCH: 'As senhas digitadas não são as mesmas'
+    REQUIRED: 'FORMS.REQUIRED',
+    INVALID_PASSWORD: 'FORMS.INVALID_PASSWORD',
+    INVALID_EMAIL: 'FORMS.INVALID_EMAIL',
+    EMAIL_NOT_MATCH: 'FORMS.EMAIL_NOT_MATCH',
+    PASSWORD_NOT_MATCH: 'FORMS.PASSWORD_NOT_MATCH'
 }
 
