@@ -10,6 +10,7 @@ import LanguageSelect from 'components/LanguageSelect'
 
 import logoutIcon from 'assets/icons/logout.svg'
 import avatarIcon from 'assets/icons/avatar.svg'
+import logoImage from 'assets/images/logo.png'
 
 export default  function Navbar(){
     const { t } = useTranslation()
@@ -21,7 +22,12 @@ export default  function Navbar(){
                     className="btn btn-ghost normal-case text-xl"
                     href='/'
                 >
-                    To-Do App
+                    <Image 
+                        src={logoImage}
+                        alt='Logo'
+                        width={150}
+                        height={50}
+                    />
                 </Link>
             </div>
             <div className="flex-none">

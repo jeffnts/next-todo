@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -22,6 +23,8 @@ import {
 import { useToast } from 'hooks'
 
 import formValidation from './validations'
+
+import loginLogoImage from 'assets/images/loginLogo.png'
 
 const RegisterModal = dynamic(() => import('../RegisterModal'))
 
@@ -81,6 +84,15 @@ export default function LoginPage(){
       <div data-theme={state.theme ==='dark'? 'dracula': 'light'}  className="hero min-h-screen bg-base-200">
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <div className="card-body">
+              <div className='grid justify-items-center '>
+                <Image 
+                  src={loginLogoImage}
+                  alt='Login logo'
+                  width={200}
+                  height={50}
+                />
+              </div>
+
               <Input 
                 label={t('LOGIN.EMAIL')}
                 placeholder={t('LOGIN.EMAIL_PLACEHOLDER') ?? ''}
