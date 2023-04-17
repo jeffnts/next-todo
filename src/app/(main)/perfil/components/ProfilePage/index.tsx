@@ -1,6 +1,6 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -13,6 +13,7 @@ import { forms } from 'consts/errors'
 
 import { required } from 'utils/yup'
 
+import { resetPassword } from 'services/auth'
 import { 
     getUser,
     updateUser } from  'services/users'
@@ -21,10 +22,15 @@ import { useToast } from 'hooks'
 
 import { userKey } from 'consts/queries'
 
+import { ChangePasswordModal } from 'components/ChangePasswordModal'
+import { ChangePasswordConfirmationModal } from 'components/ChangePasswordConfirmationModal'
+
+
 import formValidation from './validations'
 
 export default function ProfilePage(){
-    const session = useSession() 
+    const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false)
+    const [isChangePasswordConfirmationModalOpen, setIsChangePasswordConfirmationModalOpen] = useState(false)
      
     const { t } = useTranslation()
 
@@ -39,7 +45,7 @@ export default function ProfilePage(){
         )
     )}
 
-    const { register, handleSubmit, formState: { errors }} = useForm(formOptions)
+    const { register, handleSubmit, getValues, formState: { errors }} = useForm(formOptions)
     
     const { data: user, isLoading, refetch } = useQuery(userKey, getUser)
         
@@ -49,9 +55,21 @@ export default function ProfilePage(){
             toast.success(t('PROFILE.UPDATE_USER_TOAST'))
         }
     })
+
+    const {mutate: mutateChangingPassword, isLoading: isLoadingChangingPassword } = useMutation(resetPassword, {
+        onSuccess(){
+            setIsChangePasswordModalOpen(false)
+            setIsChangePasswordConfirmationModalOpen(true)
+        }
+    })
     
     function onSubmit(values: any){
         mutate(values)
+    }
+
+    async function confirmPasswordChanging(){
+        const email = getValues('email')
+        mutateChangingPassword(email)
     }
 
     return (
@@ -92,9 +110,23 @@ export default function ProfilePage(){
 
             <button
                 className='btn btn-link'
+                onClick={() => setIsChangePasswordModalOpen(true)}
             >
                 {t('PROFILE.REDEFINE_PASSWORD')}
             </button>
+
+            <ChangePasswordModal 
+                isOpen={isChangePasswordModalOpen}
+                onClose={() => setIsChangePasswordModalOpen(false)}
+                onConfirm={confirmPasswordChanging}
+                isLoading={isLoadingChangingPassword}
+            />
+
+            <ChangePasswordConfirmationModal 
+                isOpen={isChangePasswordConfirmationModalOpen}
+                onClose={() => setIsChangePasswordConfirmationModalOpen(false)}
+                onConfirm={() => setIsChangePasswordConfirmationModalOpen(false)}
+            />
         </div>
     )
 }

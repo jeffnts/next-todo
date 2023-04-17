@@ -7,7 +7,8 @@ const login =  {
         BUTTON: 'Login',
         CREATE_ACCOUNT_LABEL: 'Don`t you have ana account yet?',
         CREATE_ACCOUNT_BUTON: 'Create account',
-        ERROR: 'E-mail or password incorrect!'
+        ERROR: 'E-mail or password incorrect!',
+        FORGOT_PASSWORD_BUTTON: 'Forgot my password'
     }
 }
 

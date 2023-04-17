@@ -7,7 +7,8 @@ const login =  {
         BUTTON: 'Entrar',
         CREATE_ACCOUNT_LABEL: 'Não tem uma conta ainda?',
         CREATE_ACCOUNT_BUTON: 'Criar conta',
-        ERROR: 'E-mail ou senha incorretos!'
+        ERROR: 'E-mail ou senha incorretos!',
+        FORGOT_PASSWORD_BUTTON: 'Esqueci minha senha'
     }
 }
 
