@@ -3,7 +3,8 @@ import './globals.css'
 import  Providers from './providers'
 
 export const metadata = {
-  title: 'To-Do App'
+  title: 'To-Do App',
+  desccription: 'A simple to do app'
 }
 
 export default function RootLayout({
