@@ -10,9 +10,14 @@ import { useTranslation } from 'react-i18next'
 
 import { Input, SwapTheme, LanguageSelect } from 'components'
 
+import { ChangePasswordModal } from 'components/ChangePasswordModal'
+import { ChangePasswordConfirmationModal } from 'components/ChangePasswordConfirmationModal'
+
 import { useTheme } from 'store'
 
-import { login } from 'services/auth'
+import { 
+  login,
+  resetPassword } from 'services/auth'
 
 import { useToast } from 'hooks'
 
@@ -22,9 +27,11 @@ const RegisterModal = dynamic(() => import('../RegisterModal'))
 
 export default function LoginPage(){
     const formOptions = { resolver: yupResolver(formValidation) }
-    const { register, handleSubmit, formState: { errors }} = useForm(formOptions)  
+    const { register, handleSubmit, getValues, setError, formState: { errors }} = useForm(formOptions)  
 
     const [ isOpenModal , setIsOpenModal ] = useState(false)
+    const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false)
+    const [isChangePasswordConfirmationModalOpen, setIsChangePasswordConfirmationModalOpen] = useState(false)
 
     const { state } = useTheme()
 
@@ -45,6 +52,29 @@ export default function LoginPage(){
     
     function onSubmit(values: any){
       mutate(values)
+    }
+
+    const {mutate: mutateChangingPassword, isLoading: isLoadingChangingPassword } = useMutation(resetPassword, {
+      onSuccess(){
+          setIsChangePasswordModalOpen(false)
+            setIsChangePasswordConfirmationModalOpen(true)
+        }
+    })
+
+    function handleOpenChangingPassword(){
+      const email = getValues('email')
+
+      if(!email?.length){
+        return setError('email', { message: 'FORMS.REQUIRED'})
+      }
+
+      setError('email', { message: undefined })
+      setIsChangePasswordModalOpen(true)
+    }
+
+    async function confirmPasswordChanging(){
+      const email = getValues('email')
+      mutateChangingPassword(email)
     }
 
     return (
@@ -75,6 +105,15 @@ export default function LoginPage(){
                 </button>
               </div>
 
+              <div className="text-sm font-light mt-6 flex justify-center">
+                  <button
+                    className='link link-primary'
+                    onClick={handleOpenChangingPassword}
+                  > 
+                    {t('LOGIN.FORGOT_PASSWORD_BUTTON')}
+                  </button>   
+              </div>
+
               <div className="text-sm font-light flex mt-6">
                   <p>{t('LOGIN.CREATE_ACCOUNT_LABEL')} </p>
 
@@ -99,6 +138,19 @@ export default function LoginPage(){
             <LanguageSelect />
             <SwapTheme />
           </div>
+
+          <ChangePasswordModal 
+                isOpen={isChangePasswordModalOpen}
+                onClose={() => setIsChangePasswordModalOpen(false)}
+                onConfirm={confirmPasswordChanging}
+                isLoading={isLoadingChangingPassword}
+            />
+
+            <ChangePasswordConfirmationModal 
+                isOpen={isChangePasswordConfirmationModalOpen}
+                onClose={() => setIsChangePasswordConfirmationModalOpen(false)}
+                onConfirm={() => setIsChangePasswordConfirmationModalOpen(false)}
+            />
       </div>
     )
 }

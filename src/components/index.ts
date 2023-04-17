@@ -22,12 +22,11 @@ export { SwapTheme } from './SwapTheme'
 
 export { Overlay } from './Overlay'
 
-
 export { 
     Body,
     Navbar,
     Sidenav,
     Skeleton,
     RemoveModal,
-    LanguageSelect
+    LanguageSelect   
 }

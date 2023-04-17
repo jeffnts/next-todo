@@ -1,5 +1,3 @@
-'use client'
-
 import { useTranslation } from 'react-i18next'
 
 import { Modal } from 'components'
@@ -8,19 +6,11 @@ type Props = {
     isOpen: boolean
     onClose: () => void
     onConfirm: () => void
-    title?: string
-    description?: string
     isLoading?: boolean
 }
 
-export default function RemoveModal(props: Props){
-    const { 
-        isOpen, 
-        onClose, 
-        onConfirm,
-        title, 
-        description,
-        isLoading } = props
+export function ChangePasswordConfirmationModal(props: Props){
+    const { isOpen, onClose, onConfirm, isLoading } = props
 
     const { t } = useTranslation()
 
@@ -28,25 +18,18 @@ export default function RemoveModal(props: Props){
         <Modal
             isOpen={isOpen}
             onClose={onClose}
-            title={title || t('MODAL.TITLE')}
+            title={t('PROFILE.CHANGE_PASSWORD_TITLE')}
         >
             <div className='mt-5'>
-                { description || t('MODAL.DESCRIPTION')}
+                { t('PROFILE.CHANGE_PASSWORD_CONFIRMATION')}
             </div>
 
             <div className='flex justify-end gap-8 mt-6'>
                 <button 
                     className={`btn btn-outline ${isLoading && 'disabled'}`}
-                    onClick={onClose}
-                >
-                    { t('LISTS.CANCEL') }
-                </button>
-
-                <button
-                    className={`btn btn-error ${isLoading && 'disabled'}`}
                     onClick={onConfirm}
                 >
-                    { t('LISTS.REMOVE') }
+                    { t('PROFILE.CHANGE_PASSWORD_BUTTON_OK') }
                 </button>
             </div>
         </Modal>
