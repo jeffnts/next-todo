@@ -13,7 +13,7 @@ const layout =  {
         NEW_LISTS: 'New List'
     },
     MODAL: {
-        TITLE: 'Remove item?',
+        TITLE: 'Remove item',
         DESCRIPTION: 'Are you sure you want to remove this item?'
     },
     INPUT: {

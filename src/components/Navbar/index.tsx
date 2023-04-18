@@ -11,6 +11,8 @@ import LanguageSelect from 'components/LanguageSelect'
 import logoutIcon from 'assets/icons/logout.svg'
 import avatarIcon from 'assets/icons/avatar.svg'
 import logoImage from 'assets/images/logo.png'
+import logoMobileIcon from 'assets/images/logoMobile.png'
+
 
 export default  function Navbar(){
     const { t } = useTranslation()
@@ -23,9 +25,18 @@ export default  function Navbar(){
                     href='/'
                 >
                     <Image 
+                        className='max-sm:hidden'
                         src={logoImage}
                         alt='Logo'
                         width={150}
+                        height={50}
+                    />
+
+                    <Image 
+                        className='md:hidden'
+                        src={logoMobileIcon}
+                        alt='Logo'
+                        width={50}
                         height={50}
                     />
                 </Link>

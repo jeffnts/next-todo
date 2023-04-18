@@ -156,27 +156,27 @@ $ npm run dev
 This software uses the following open source packages:
 <div style='display: flex; flex-direction: row; align-items:center; gap: 20px; padding: 10px 0;'>
     <a href='https://nextjs.org/' target='_blank'>
-    <img src="public\images\nextjs.png" style="transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  width=100>
+    <img src="public\images\nextjs.png" style="padding: 10px; transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  width=100>
     </a>
-    <a href='https://next-auth.js.org/' style="transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
+    <a href='https://next-auth.js.org/' style="padding: 10px; transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
         <img src='public\images\next-auth.png' width=100>
     </a>
-    <a href='https://firebase.google.com/' style="transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
+    <a href='https://firebase.google.com/' style="padding: 10px; transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
         <img src='public\images\firebase.png' width=100>
     </a>
-    <a href='https://www.prisma.io/' style="transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
+    <a href='https://www.prisma.io/' style="padding: 10px; transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
         <img src='public\images\prisma.png' width=100>
     </a>
-    <a href='https://zustand-demo.pmnd.rs/' style="transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
+    <a href='https://zustand-demo.pmnd.rs/' style="padding: 10px; transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
         <img src='public\images\zustand.png' width=100>
     </a>
-     <a href='https://react-hook-form.com/' style="transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
+     <a href='https://react-hook-form.com/' style="padding: 10px; transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
         <img src='public\images\react-hook-form.jpg' width=100>
     </a>
-    <a href='https://tailwindcss.com/' style="transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
+    <a href='https://tailwindcss.com/' style="padding: 10px; transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
         <img src='public\images\tailwind.png' width=100>
     </a>
-    <a href='https://daisyui.com/' style="transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
+    <a href='https://daisyui.com/' style="padding: 10px; transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"  target='_blank'>
         <img src='public\images\daisyui.svg' width=100>
     </a>
 </div>
